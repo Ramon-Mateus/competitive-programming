@@ -3,145 +3,152 @@ n,q = input().split()
 n = int(n)
 q = int(q)
 
-jogo = []
-jogoQ1 = []
+jogoQn = []
 
 v = 0
 
+jogoQn.append([])
 for i in range(0, n):
     row = input()
-    jogo.append([])
+    jogoQn[0].append([])
     for j in range(0, n):
-        jogo[i].append(row[j])
+        jogoQn[0][i].append(row[j])
 
-def check(i, j, vi):
-    if jogo[i][j] == "0":
+# for k in range(0, n):
+#     for w in range(0, n-1):
+#         print(jogoQn[0][k][w], end="")
+#     print(jogoQn[0][k][n-1])
+
+def check(i, j, qi, vi):
+    if jogoQn[qi-1][i][j] == "0":
         if vi == 3:
-            jogoQ1[i].append(1)
+            jogoQn[qi][i].append("1")
         else:
-            jogoQ1[i].append(0)
+            jogoQn[qi][i].append("0")
     else:
         if(vi == 2 or vi == 3):
-            jogoQ1[i].append(1)
+            jogoQn[qi][i].append("1")
         else:
-            jogoQ1[i].append(0)
+            jogoQn[qi][i].append("0")
 
-for i in range(0, n):
-    jogoQ1.append([])
-    for j in range(0, n):
-        if i == 0:
-            if j == 0:
-                if jogo[i][j+1] == "1":
+for k in range(1, q+1):
+    jogoQn.append([])
+    for i in range(0, n):
+        jogoQn[k].append([])
+        for j in range(0, n):
+            if i == 0:
+                if j == 0:
+                    if jogoQn[k-1][i][j+1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i+1][j+1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i+1][j] == "1":
+                        v += 1
+                    check(i, j, k, v)
+                    v = 0
+                elif j == n - 1:
+                    if jogoQn[k-1][i][j-1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i+1][j-1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i+1][j] == "1":
+                        v += 1
+                    check(i, j, k, v)
+                    v = 0
+                else:
+                    if jogoQn[k-1][i][j+1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i+1][j+1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i+1][j] == "1":
+                        v += 1
+                    if jogoQn[k-1][i+1][j-1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i][j-1] == "1":
+                        v += 1
+                    check(i, j, k, v)
+                    v = 0
+            elif i == n - 1:
+                if j == 0:
+                    if jogoQn[k-1][i-1][j] == "1":
+                        v += 1
+                    if jogoQn[k-1][i-1][j+1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i][j+1] == "1":
+                        v += 1
+                    check(i, j, k, v)
+                    v = 0
+                elif j == n - 1:
+                    if jogoQn[k-1][i][j-1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i-1][j-1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i-1][j] == "1":
+                        v += 1
+                    check(i, j, k, v)
+                    v = 0
+                else:
+                    if jogoQn[k-1][i][j-1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i-1][j-1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i-1][j] == "1":
+                        v += 1
+                    if jogoQn[k-1][i-1][j+1] == "1":
+                        v += 1
+                    if jogoQn[k-1][i][j+1] == "1":
+                        v += 1
+                    check(i, j, k, v)
+                    v = 0
+            elif j == 0:
+                if jogoQn[k-1][i-1][j] == "1":
                     v += 1
-                if jogo[i+1][j+1] == "1":
+                if jogoQn[k-1][i-1][j+1] == "1":
                     v += 1
-                if jogo[i+1][j] == "1":
+                if jogoQn[k-1][i][j+1] == "1":
                     v += 1
-                check(i, j, v)
+                if jogoQn[k-1][i+1][j+1] == "1":
+                    v += 1
+                if jogoQn[k-1][i+1][j] == "1":
+                    v += 1
+                check(i, j, k, v)
                 v = 0
             elif j == n - 1:
-                if jogo[i][j-1] == "1":
+                if jogoQn[k-1][i-1][j] == "1":
                     v += 1
-                if jogo[i+1][j-1] == "1":
+                if jogoQn[k-1][i-1][j-1] == "1":
                     v += 1
-                if jogo[i+1][j] == "1":
+                if jogoQn[k-1][i][j-1] == "1":
                     v += 1
-                check(i, j, v)
+                if jogoQn[k-1][i+1][j-1] == "1":
+                    v += 1
+                if jogoQn[k-1][i+1][j] == "1":
+                    v += 1
+                check(i, j, k, v)
                 v = 0
             else:
-                if jogo[i][j+1] == "1":
+                if jogoQn[k-1][i-1][j-1] == "1":
                     v += 1
-                if jogo[i+1][j+1] == "1":
+                if jogoQn[k-1][i-1][j] == "1":
                     v += 1
-                if jogo[i+1][j] == "1":
+                if jogoQn[k-1][i-1][j+1] == "1":
                     v += 1
-                if jogo[i+1][j-1] == "1":
+                if jogoQn[k-1][i][j+1] == "1":
                     v += 1
-                if jogo[i][j-1] == "1":
+                if jogoQn[k-1][i+1][j+1] == "1":
                     v += 1
-                check(i, j, v)
+                if jogoQn[k-1][i+1][j] == "1":
+                    v += 1
+                if jogoQn[k-1][i+1][j-1] == "1":
+                    v += 1
+                if jogoQn[k-1][i][j-1] == "1":
+                    v += 1
+                check(i, j, k, v)
                 v = 0
-        elif i == n - 1:
-            if j == 0:
-                if jogo[i-1][j] == "1":
-                    v += 1
-                if jogo[i-1][j+1] == "1":
-                    v += 1
-                if jogo[i][j+1] == "1":
-                    v += 1
-                check(i, j, v)
-                v = 0
-            elif j == n - 1:
-                if jogo[i][j-1] == "1":
-                    v += 1
-                if jogo[i-1][j-1] == "1":
-                    v += 1
-                if jogo[i-1][j] == "1":
-                    v += 1
-                check(i, j, v)
-                v = 0
-            else:
-                if jogo[i][j-1] == "1":
-                    v += 1
-                if jogo[i-1][j-1] == "1":
-                    v += 1
-                if jogo[i-1][j] == "1":
-                    v += 1
-                if jogo[i-1][j+1] == "1":
-                    v += 1
-                if jogo[i][j+1] == "1":
-                    v += 1
-                check(i, j, v)
-                v = 0
-        elif j == 0:
-            if jogo[i-1][j] == "1":
-                v += 1
-            if jogo[i-1][j+1] == "1":
-                v += 1
-            if jogo[i][j+1] == "1":
-                v += 1
-            if jogo[i+1][j+1] == "1":
-                v += 1
-            if jogo[i+1][j] == "1":
-                v += 1
-            check(i, j, v)
-            v = 0
-        elif j == n - 1:
-            if jogo[i-1][j] == "1":
-                v += 1
-            if jogo[i-1][j-1] == "1":
-                v += 1
-            if jogo[i][j-1] == "1":
-                v += 1
-            if jogo[i+1][j-1] == "1":
-                v += 1
-            if jogo[i+1][j] == "1":
-                v += 1
-            check(i, j, v)
-            v = 0
-        else:
-            if jogo[i-1][j-1] == "1":
-                v += 1
-            if jogo[i-1][j] == "1":
-                v += 1
-            if jogo[i-1][j+1] == "1":
-                v += 1
-            if jogo[i][j+1] == "1":
-                v += 1
-            if jogo[i+1][j+1] == "1":
-                v += 1
-            if jogo[i+1][j] == "1":
-                v += 1
-            if jogo[i+1][j-1] == "1":
-                v += 1
-            if jogo[i][j-1] == "1":
-                v += 1
-            check(i, j, v)
-            v = 0
 
 print("----------------")
 
 for k in range(0, n):
     for w in range(0, n-1):
-        print(jogoQ1[k][w], end="")
-    print(jogoQ1[k][n-1])
+        print(jogoQn[q][k][w], end="")
+    print(jogoQn[q][k][n-1])
