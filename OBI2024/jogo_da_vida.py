@@ -14,11 +14,6 @@ for i in range(0, n):
     for j in range(0, n):
         jogoQn[0][i].append(row[j])
 
-# for k in range(0, n):
-#     for w in range(0, n-1):
-#         print(jogoQn[0][k][w], end="")
-#     print(jogoQn[0][k][n-1])
-
 def check(i, j, qi, vi):
     if jogoQn[qi-1][i][j] == "0":
         if vi == 3:
